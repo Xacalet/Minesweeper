@@ -1,7 +1,9 @@
 package com.xacalet.minesweeper
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -13,24 +15,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.xacalet.minesweeper.model.Game
-import com.xacalet.minesweeper.model.Game.CellState.*
 import com.xacalet.minesweeper.model.Point
-import com.xacalet.minesweeper.ui.component.CoveredCell
-import com.xacalet.minesweeper.ui.component.MineCell
+import com.xacalet.minesweeper.ui.component.Cell
 import com.xacalet.minesweeper.ui.component.NumericDisplay
-import com.xacalet.minesweeper.ui.component.SafeCell
 import com.xacalet.minesweeper.ui.foundation.BevelType
 import com.xacalet.minesweeper.ui.foundation.bevel
 import com.xacalet.minesweeper.ui.theme.MineSweeperTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : AppCompatActivity() {
+
+    @ExperimentalFoundationApi
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @Composable
 fun Board() {
@@ -101,12 +103,11 @@ fun Board() {
             boardState.forEachIndexed { x, column ->
                 Row {
                     column.forEachIndexed { y, cellState ->
-                        when(cellState) {
-                            is Covered -> CoveredCell { boardTable.uncoverCell(Point(x, y)) }
-                            is Safe -> SafeCell(cellState.contiguousMineCount)
-                            is Mine -> MineCell(cellState.exploded)
-                            is WrongFlag -> Unit
-                        }
+                        Cell(Modifier.size(32.dp), cellState, {
+                            boardTable.uncoverCell(Point(x, y))
+                        }, {
+                            boardTable.setFlag(Point(x, y))
+                        })
                     }
                 }
             }
@@ -116,6 +117,8 @@ fun Board() {
 
 
 
+@ExperimentalFoundationApi
+@ExperimentalCoroutinesApi
 @Preview
 @Composable
 fun BoardPreview() {

@@ -15,7 +15,7 @@ class Game(
 
     init {
         val cells = difficulty.rows * difficulty.columns
-        _boardState = Array(difficulty.columns) { Array(difficulty.rows) { CellState.Covered() } }
+        _boardState = Array(difficulty.columns) { Array(difficulty.rows) { CellState.Covered } }
         boardState = MutableStateFlow(_boardState)
 
         val bombs = (0 until cells).shuffled().take(difficulty.bombs)
@@ -42,6 +42,11 @@ class Game(
         boardState.value = _boardState.clone()
     }
 
+    fun setFlag(position: Point) {
+        _boardState[position.x][position.y] = CellState.Flagged
+        boardState.value = _boardState.clone()
+    }
+
     private fun Point.getContiguousCells(contiguity: Int = 1): List<Point> =
         ((x - contiguity).coerceAtLeast(0)..(x + contiguity).coerceAtMost(difficulty.columns - 1)).map { x ->
             ((y - contiguity).coerceAtLeast(0)..(y + contiguity).coerceAtMost(difficulty.rows - 1)).map { y ->
@@ -59,10 +64,4 @@ class Game(
         class Custom(rows: Int, columns: Int, bombs: Int) : Difficulty(rows, columns, bombs)
     }
 
-    sealed class CellState {
-        class Covered(val flagged: Boolean = false) : CellState()
-        class Safe(val contiguousMineCount: Int = 0) : CellState()
-        class Mine(val exploded: Boolean = false) : CellState()
-        object WrongFlag : CellState()
-    }
 }

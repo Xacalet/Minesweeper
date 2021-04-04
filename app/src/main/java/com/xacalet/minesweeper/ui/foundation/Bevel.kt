@@ -40,7 +40,7 @@ fun Modifier.bevel(
             properties["shadeColor"] = shadeColor
             properties["shineColor"] = shineColor
         }
-    ).padding(width)
+    ).padding(width) // Try to measure things instead of adding this padding
 )
 
 private class Bevel constructor(

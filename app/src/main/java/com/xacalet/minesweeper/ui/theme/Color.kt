@@ -7,7 +7,8 @@ val purple500 = Color(0xFF6200EE)
 val purple700 = Color(0xFF3700B3)
 val teal200 = Color(0xFF03DAC5)
 val teal600 = Color(0xFF00897B)
-val gray400 = Color(0XFFBDBDBD)
+val unpressedGray = Color(0XFFBDBDBD)
+val pressedGray = Color(0XFFC0C0C0)
 val gray600 = Color(0XFF757575)
 
 // Number colors
