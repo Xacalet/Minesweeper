@@ -11,8 +11,9 @@ import com.xacalet.minesweeper.ui.foundation.BevelType
 import com.xacalet.minesweeper.ui.foundation.bevel
 
 @Composable
+// TODO: Use font instead of canvas
 fun NumericDisplay(value: Int) {
-    val coercedValue = value.coerceIn(0, 999)
+    val coercedValue = value.coerceIn(-99, 999)
     Row(modifier = Modifier
             .background(Color.Black)
             .bevel(1.dp, type = BevelType.Lowered)

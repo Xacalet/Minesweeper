@@ -23,7 +23,7 @@ sealed class BevelType {
 }
 
 fun Modifier.bevel(
-    width: Dp = 1.dp,
+    width: Dp = 3.dp,
     type: BevelType = BevelType.Raised,
     shadeColor: Color = Color.Gray,
     shineColor: Color = Color.White,
@@ -40,7 +40,7 @@ fun Modifier.bevel(
             properties["shadeColor"] = shadeColor
             properties["shineColor"] = shineColor
         }
-    ).padding(width) // Try to measure things instead of adding this padding
+    ).padding(width) // TODO: Find another way to do this padding
 )
 
 private class Bevel constructor(
@@ -52,38 +52,8 @@ private class Bevel constructor(
 ) : DrawModifier, InspectorValueInfo(inspectorInfo) {
 
     override fun ContentDrawScope.draw() {
-        drawBevel()
+        drawBevel(width, type, shadeColor, shineColor)
         drawContent()
-    }
-
-    private fun ContentDrawScope.drawBevel() {
-        val bevelWidth = width.toPx()
-        val bevelColor1 = if (type == BevelType.Raised) shineColor else shadeColor
-        val bevelColor2 = if (type == BevelType.Raised) shadeColor else shineColor
-        drawPath(
-            color = bevelColor1,
-            path = Path().apply {
-                moveTo(0f, 0f)
-                lineTo(size.width, 0f)
-                lineTo(size.width - bevelWidth, bevelWidth)
-                lineTo(bevelWidth, bevelWidth)
-                lineTo(bevelWidth, size.height - bevelWidth)
-                lineTo(0f, size.height)
-                lineTo(0f, 0f)
-            }
-        )
-        drawPath(
-            color = bevelColor2,
-            path = Path().apply {
-                moveTo(size.width, size.height)
-                lineTo(0f, size.height)
-                lineTo(bevelWidth, size.height - bevelWidth)
-                lineTo(size.width - bevelWidth, size.height - bevelWidth)
-                lineTo(size.width - bevelWidth, bevelWidth)
-                lineTo(size.width, 0f)
-                lineTo(size.width, size.height)
-            }
-        )
     }
 
     override fun hashCode(): Int {
@@ -104,6 +74,41 @@ private class Bevel constructor(
 
     override fun toString(): String =
         "Bevel(width=$width, type=$type, shadeColor=$shadeColor, shineColor=$shineColor)"
+}
+
+fun ContentDrawScope.drawBevel(
+    width: Dp = 1.dp,
+    type: BevelType = BevelType.Raised,
+    shadeColor: Color = Color.Gray,
+    shineColor: Color = Color.White
+) {
+    val bevelWidth = width.toPx()
+    val bevelColor1 = if (type == BevelType.Raised) shineColor else shadeColor
+    val bevelColor2 = if (type == BevelType.Raised) shadeColor else shineColor
+    drawPath(
+        color = bevelColor1,
+        path = Path().apply {
+            moveTo(0f, 0f)
+            lineTo(size.width, 0f)
+            lineTo(size.width - bevelWidth, bevelWidth)
+            lineTo(bevelWidth, bevelWidth)
+            lineTo(bevelWidth, size.height - bevelWidth)
+            lineTo(0f, size.height)
+            lineTo(0f, 0f)
+        }
+    )
+    drawPath(
+        color = bevelColor2,
+        path = Path().apply {
+            moveTo(size.width, size.height)
+            lineTo(0f, size.height)
+            lineTo(bevelWidth, size.height - bevelWidth)
+            lineTo(size.width - bevelWidth, size.height - bevelWidth)
+            lineTo(size.width - bevelWidth, bevelWidth)
+            lineTo(size.width, 0f)
+            lineTo(size.width, size.height)
+        }
+    )
 }
 
 @Preview(showBackground = true)
