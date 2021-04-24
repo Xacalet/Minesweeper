@@ -11,14 +11,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.xacalet.minesweeper.R
 import com.xacalet.minesweeper.model.GameRepository
 import com.xacalet.minesweeper.ui.foundation.BevelType
@@ -57,8 +62,8 @@ fun ControlPanel(repo: GameRepository) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // TODO: Connect to a timer
-        NumericDisplay(0)
+        val timer = repo.timer.collectAsState(0)
+        NumericDisplay(timer.value)
         ClassicButton(
             modifier = Modifier
                 .background(Color.Gray)
@@ -87,6 +92,25 @@ fun ControlPanel(repo: GameRepository) {
 @Composable
 fun CellGrid(repo: GameRepository) {
     val context = LocalContext.current
+
+    val lifecycleObserver = remember {
+        LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> repo.startTimer()
+                Lifecycle.Event.ON_PAUSE -> repo.stopTimer()
+                else -> Unit
+            }
+        }
+    }
+
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    DisposableEffect(lifecycle) {
+        lifecycle.addObserver(lifecycleObserver)
+        onDispose {
+            lifecycle.removeObserver(lifecycleObserver)
+        }
+    }
+
     Box(Modifier.bevel(5.dp, BevelType.Lowered)) {
         val (rows, columns) = repo.boardSize
         Column(Modifier.background(Color.Gray)) {

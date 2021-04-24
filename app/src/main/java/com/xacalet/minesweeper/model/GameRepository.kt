@@ -4,6 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlin.math.max
 import kotlin.math.min
 
@@ -19,14 +21,17 @@ class GameRepository {
 
     private var cells: Array<Array<CellData>> = emptyArray()
 
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+
     var cellStates: Array<Array<MutableState<CellState>>> by mutableStateOf(emptyArray())
         private set
 
     var minesLeftCounter: Int by mutableStateOf(0)
         private set
 
-    var timer: Int by mutableStateOf(0)
-        private set
+    private val _timer = MutableStateFlow(0L)
+
+    val timer: Flow<Int> = _timer.map { it.div(10).toInt() }
 
     var gameState: GameState by mutableStateOf(GameState.Uninitialized)
         private set
@@ -41,7 +46,7 @@ class GameRepository {
         // Reset values
         gameState = GameState.Uninitialized
         this.difficulty = difficulty
-        timer = 0
+        _timer.value = 0
         flags.clear()
         mines = emptyList()
         uncoveredCellCount = difficulty.columns * difficulty.rows
@@ -58,6 +63,7 @@ class GameRepository {
                 cells[x][y].state
             }
         }
+        stopTimer()
     }
 
     fun onCellClick(x: Int, y: Int) {
@@ -67,8 +73,8 @@ class GameRepository {
 
         if (gameState == GameState.Uninitialized) {
             initializeGame(x, y)
-            // TODO: Initialize timer
             gameState = GameState.InProgress
+            startTimer()
         }
         if (cells[x][y].isMine) {
             // Explode clicked cell.
@@ -87,15 +93,15 @@ class GameRepository {
             }
             // End game.
             gameState = GameState.Lost
+            stopTimer()
         } else {
             when(cells[x][y].state.value) {
                 CellState.Covered -> uncoverContiguousSafeCells(x, y)
                 is CellState.Safe -> {
-                    val contiguousCells = getContiguousCells(x, y)
-                    val contiguousFlagCount = contiguousCells.count { (xC, yC) ->
+                    val contiguousFlagCount = cells[x][y].contiguousCells.count { (xC, yC) ->
                         cells[xC][yC].state.value == CellState.Flagged
                     }
-                    val contiguousMineCount = contiguousCells.count { (xC, yC) ->
+                    val contiguousMineCount = cells[x][y].contiguousCells.count { (xC, yC) ->
                         cells[xC][yC].isMine
                     }
                     if (contiguousMineCount in 1..contiguousFlagCount) {
@@ -107,6 +113,7 @@ class GameRepository {
         }
         if (uncoveredCellCount == mines.count()) {
             gameState = GameState.Won
+            stopTimer()
         }
     }
 
@@ -132,7 +139,7 @@ class GameRepository {
     }
 
     private fun initializeGame(x0: Int, y0: Int) {
-        val startingCellGroup = getContiguousCells(x0, y0).map { (x, y) ->
+        val startingCellGroup = cells[x0][y0].contiguousCells.map { (x, y) ->
             x + (y * difficulty.columns)
         }
         mines = (0 until difficulty.rows * difficulty.columns)
@@ -180,6 +187,26 @@ class GameRepository {
                 Point(x, y)
             }
         }.flatten()
+    }
+
+    private fun getTicker(): Flow<Unit> {
+        return flow {
+            while (true) {
+                emit(Unit)
+            }
+        }.onEach { delay(100) }
+    }
+
+    fun startTimer() {
+        if (gameState == GameState.InProgress) {
+            coroutineScope.launch {
+                getTicker().collect { _timer.value = _timer.value + 1 }
+            }
+        }
+    }
+
+    fun stopTimer() {
+        coroutineScope.coroutineContext.job.cancelChildren()
     }
 
     sealed class Difficulty(val rows: Int, val columns: Int, val mineCount: Int) {
