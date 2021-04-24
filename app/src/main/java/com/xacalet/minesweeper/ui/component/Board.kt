@@ -98,8 +98,9 @@ fun CellGrid(repo: GameRepository) {
                             state = repo.cellStates[x][y].value,
                             onClick = { repo.onCellClick(x, y) },
                             onLongClick = {
-                                vibrate(context)
-                                repo.onCellLongClick(x, y)
+                                if (repo.onCellLongClick(x, y)) {
+                                    vibrate(context)
+                                }
                             }
                         )
                     }

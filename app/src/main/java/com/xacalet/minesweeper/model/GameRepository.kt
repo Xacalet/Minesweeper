@@ -110,9 +110,13 @@ class GameRepository {
         }
     }
 
-    fun onCellLongClick(x: Int, y: Int) {
+    /**
+     * Manages a long click event made at cell ([x],[y]), and returns true if event was handled
+     * or false otherwise.
+     */
+    fun onCellLongClick(x: Int, y: Int): Boolean {
         if (gameState == GameState.Lost || gameState == GameState.Won) {
-            return
+            return false
         }
 
         if (cells[x][y].state.value == CellState.Flagged) {
@@ -124,6 +128,7 @@ class GameRepository {
             flags.add(Point(x, y))
             minesLeftCounter--
         }
+        return true
     }
 
     private fun initializeGame(x0: Int, y0: Int) {
