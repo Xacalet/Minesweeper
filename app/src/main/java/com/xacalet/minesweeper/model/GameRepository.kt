@@ -88,7 +88,22 @@ class GameRepository {
             // End game.
             gameState = GameState.Lost
         } else {
-            uncoverContiguousCells(x, y)
+            when(cells[x][y].state.value) {
+                CellState.Covered -> uncoverContiguousSafeCells(x, y)
+                is CellState.Safe -> {
+                    val contiguousCells = getContiguousCells(x, y)
+                    val contiguousFlagCount = contiguousCells.count { (xC, yC) ->
+                        cells[xC][yC].state.value == CellState.Flagged
+                    }
+                    val contiguousMineCount = contiguousCells.count { (xC, yC) ->
+                        cells[xC][yC].isMine
+                    }
+                    if (contiguousMineCount in 1..contiguousFlagCount) {
+                        forceUncoverContiguousCells(x, y)
+                    }
+                }
+                else -> Unit
+            }
         }
         if (uncoveredCellCount == mines.count()) {
             gameState = GameState.Won
@@ -129,7 +144,7 @@ class GameRepository {
             .toList()
     }
 
-    private fun uncoverContiguousCells(x0: Int, y0: Int) {
+    private fun uncoverContiguousSafeCells(x0: Int, y0: Int) {
         val contiguousMineCount = cells[x0][y0].contiguousCells.count { (x, y) ->
             cells[x][y].isMine
         }
@@ -138,8 +153,16 @@ class GameRepository {
         if (contiguousMineCount == 0) {
             cells[x0][y0].contiguousCells.forEach { (x, y) ->
                 if (cells[x][y].state.value == CellState.Covered && !cells[x][y].isMine) {
-                    uncoverContiguousCells(x, y)
+                    uncoverContiguousSafeCells(x, y)
                 }
+            }
+        }
+    }
+
+    private fun forceUncoverContiguousCells(x0: Int, y0: Int) {
+        cells[x0][y0].contiguousCells.forEach { (x, y) ->
+            if (cells[x][y].state.value == CellState.Covered) {
+                onCellClick(x, y)
             }
         }
     }

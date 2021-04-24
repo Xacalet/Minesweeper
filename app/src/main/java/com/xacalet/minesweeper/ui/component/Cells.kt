@@ -32,7 +32,10 @@ fun Cell(
         when (state) {
             CellState.Covered -> ClassicButton(onClick = onClick, onLongClick = onLongClick)
             CellState.Flagged -> FlagCell(onLongClick = onLongClick)
-            is CellState.Safe -> SafeCell(contiguousMineCount = state.contiguousMineCount)
+            is CellState.Safe -> SafeCell(
+                contiguousMineCount = state.contiguousMineCount,
+                onClick = onClick
+            )
             is CellState.Mine -> MineCell(hasExploded = state.exploded)
             CellState.NotAMine -> WrongFlagCell()
         }
@@ -86,11 +89,13 @@ fun FlagCell(
 
 @ExperimentalFoundationApi
 @Composable
-fun SafeCell(contiguousMineCount: Int) {
+fun SafeCell(contiguousMineCount: Int, onClick: () -> Unit) {
     UncoveredCell {
         if (contiguousMineCount > 0) {
             Text(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable(onClick = onClick),
                 style = contiguousMineCountTextStyle,
                 color = getTextColorByContiguousMineCount(contiguousMineCount),
                 text = "$contiguousMineCount"
