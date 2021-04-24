@@ -1,5 +1,11 @@
 package com.xacalet.minesweeper.ui.component
 
+import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.VibrationEffect.createOneShot
+import android.os.Vibrator
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -79,6 +86,7 @@ fun ControlPanel(repo: GameRepository) {
 @ExperimentalFoundationApi
 @Composable
 fun CellGrid(repo: GameRepository) {
+    val context = LocalContext.current
     Box(Modifier.bevel(5.dp, BevelType.Lowered)) {
         val (rows, columns) = repo.boardSize
         Column(Modifier.background(Color.Gray)) {
@@ -89,11 +97,24 @@ fun CellGrid(repo: GameRepository) {
                             modifier = Modifier.size(32.dp),
                             state = repo.cellStates[x][y].value,
                             onClick = { repo.onCellClick(x, y) },
-                            onLongClick = { repo.onCellLongClick(x, y) }
+                            onLongClick = {
+                                vibrate(context)
+                                repo.onCellLongClick(x, y)
+                            }
                         )
                     }
                 }
             }
         }
+    }
+}
+
+private fun vibrate(context: Context) {
+    val vibrator = context.getSystemService(VIBRATOR_SERVICE) as? Vibrator
+    val duration = 100L
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        vibrator?.vibrate(createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
+    } else {
+        vibrator?.vibrate(duration)
     }
 }
