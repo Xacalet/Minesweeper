@@ -95,7 +95,7 @@ class GameRepository {
             gameState = GameState.Lost
             stopTimer()
         } else {
-            when(cells[x][y].state.value) {
+            when (cells[x][y].state.value) {
                 CellState.Covered -> uncoverContiguousSafeCells(x, y)
                 is CellState.Safe -> {
                     val contiguousFlagCount = cells[x][y].contiguousCells.count { (xC, yC) ->
@@ -209,25 +209,35 @@ class GameRepository {
         coroutineScope.coroutineContext.job.cancelChildren()
     }
 
-    sealed class Difficulty(val rows: Int, val columns: Int, val mineCount: Int) {
-        object Beginner : Difficulty(12, 9, 20)
-        object Intermediate : Difficulty(16, 16, 40)
-        object Expert : Difficulty(16, 30, 99)
-        class Custom(rows: Int, columns: Int, bombs: Int) : Difficulty(rows, columns, bombs)
-    }
 
-    sealed class GameState {
-        object Uninitialized : GameState()
-        object InProgress : GameState()
-        object Won : GameState()
-        object Lost : GameState()
-    }
-
-    data class CellData(
-        val state: MutableState<CellState> = mutableStateOf(CellState.Covered),
-        var contiguousCells: List<Point> = emptyList(),
-        var isMine: Boolean = false
-    )
-
-    data class Point(val x: Int, val y: Int)
 }
+
+data class Point(val x: Int, val y: Int)
+
+sealed class CellState {
+    object Covered : CellState()
+    object Flagged : CellState()
+    class Safe(val contiguousMineCount: Int = 0) : CellState()
+    class Mine(val exploded: Boolean = false) : CellState()
+    object NotAMine : CellState()
+}
+
+sealed class Difficulty(val rows: Int, val columns: Int, val mineCount: Int) {
+    object Beginner : Difficulty(12, 9, 20)
+    object Intermediate : Difficulty(16, 16, 40)
+    object Expert : Difficulty(16, 30, 99)
+    class Custom(rows: Int, columns: Int, bombs: Int) : Difficulty(rows, columns, bombs)
+}
+
+sealed class GameState {
+    object Uninitialized : GameState()
+    object InProgress : GameState()
+    object Won : GameState()
+    object Lost : GameState()
+}
+
+data class CellData(
+    val state: MutableState<CellState> = mutableStateOf(CellState.Covered),
+    var contiguousCells: List<Point> = emptyList(),
+    var isMine: Boolean = false
+)

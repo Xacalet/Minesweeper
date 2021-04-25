@@ -25,7 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.xacalet.minesweeper.R
+import com.xacalet.minesweeper.model.Difficulty
 import com.xacalet.minesweeper.model.GameRepository
+import com.xacalet.minesweeper.model.GameState
 import com.xacalet.minesweeper.ui.foundation.BevelType
 import com.xacalet.minesweeper.ui.foundation.bevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,20 +65,20 @@ fun ControlPanel(repo: GameRepository) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val timer = repo.timer.collectAsState(0)
-        NumericDisplay(timer.value)
+        NumericDisplay(value = timer.value)
         ClassicButton(
             modifier = Modifier
                 .background(Color.Gray)
                 .padding(2.dp)
                 .size(44.dp),
-            onClick = { repo.startNewGame(GameRepository.Difficulty.Beginner) }
+            onClick = { repo.startNewGame(Difficulty.Beginner) }
         ) {
             val resource = when {
                 // TODO: Respond to cell click event
                 //isPressed -> R.drawable.ic_surprised_face
-                repo.gameState == GameRepository.GameState.Won -> R.drawable.ic_face_with_sunglasses
-                repo.gameState == GameRepository.GameState.Lost -> R.drawable.ic_dizzy_face
-                else -> R.drawable.ic_smiling_face
+                repo.gameState == GameState.Won -> R.drawable.ic_smiley_sunglasses
+                repo.gameState == GameState.Lost -> R.drawable.ic_smiley_dizzy
+                else -> R.drawable.ic_smiley_smiling
             }
             Image(
                 modifier = Modifier.padding(6.dp),
@@ -84,7 +86,7 @@ fun ControlPanel(repo: GameRepository) {
                 contentDescription = null
             )
         }
-        NumericDisplay(repo.minesLeftCounter)
+        NumericDisplay(value = repo.minesLeftCounter)
     }
 }
 

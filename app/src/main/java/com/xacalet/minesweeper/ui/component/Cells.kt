@@ -81,7 +81,7 @@ fun FlagCell(
             modifier = modifier
                 .fillMaxSize()
                 .padding(4.dp),
-            painter = painterResource(id = R.drawable.ic_flag),
+            painter = painterResource(id = R.drawable.ic_cell_flag),
             contentDescription = null
         )
     }
@@ -126,7 +126,7 @@ fun MineCell(hasExploded: Boolean) {
                 .fillMaxSize()
                 .background(if (hasExploded) Color.Red else Color.Transparent)
                 .padding(4.dp),
-            painter = painterResource(id = R.drawable.ic_mine),
+            painter = painterResource(id = R.drawable.ic_cell_mine),
             contentDescription = null
         )
     }
@@ -140,7 +140,7 @@ fun WrongFlagCell() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(4.dp),
-            painter = painterResource(id = R.drawable.ic_wrong_flag),
+            painter = painterResource(id = R.drawable.ic_cell_wrong_flag),
             contentDescription = null
         )
     }

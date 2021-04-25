@@ -54,12 +54,33 @@
         <entry key="../../../../../layout/compose-model-1619029962519.xml" value="0.1" />
         <entry key="../../../../../layout/compose-model-1619075358509.xml" value="0.5134553283100107" />
         <entry key="../../../../../layout/compose-model-1619260648808.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1619285579124.xml" value="0.4190268700072622" />
+        <entry key="../../../../../layout/compose-model-1619296552015.xml" value="0.4190268700072622" />
+        <entry key="../../../../../layout/compose-model-1619309295818.xml" value="2.0" />
+        <entry key="../../../../../layout/compose-model-1619309552457.xml" value="0.5242195909580194" />
+        <entry key="../../../../../layout/compose-model-1619310705067.xml" value="0.67" />
+        <entry key="../../../../../layout/compose-model-1619311540962.xml" value="0.35413642960812775" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.35" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/drawable/flag.xml" value="0.2564814814814815" />
+        <entry key="app/src/main/res/drawable/ic___seven_segment.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_0.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_1.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_2.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_3.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_4.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_5.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_6.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_7.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_8.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_9.xml" value="0.24375" />
+        <entry key="app/src/main/res/drawable/ic_display_minus.xml" value="0.24375" />
         <entry key="app/src/main/res/drawable/ic_flag.xml" value="0.2601851851851852" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2564814814814815" />
         <entry key="app/src/main/res/drawable/ic_mine.xml" value="0.2601851851851852" />
+        <entry key="app/src/main/res/drawable/ic_smiley_smiling.xml" value="0.3425925925925926" />
+        <entry key="app/src/main/res/drawable/ic_smiley_sunglasses.xml" value="0.3425925925925926" />
+        <entry key="app/src/main/res/drawable/ic_smiling_face.xml" value="0.3425925925925926" />
         <entry key="app/src/main/res/drawable/mine.xml" value="0.2564814814814815" />
         <entry key="app/src/main/res/drawable/wrong_flag.xml" value="0.2564814814814815" />
       </map>

@@ -9,7 +9,6 @@ val teal200 = Color(0xFF03DAC5)
 val teal600 = Color(0xFF00897B)
 val unpressedGray = Color(0XFFBDBDBD)
 val pressedGray = Color(0XFFC0C0C0)
-val gray600 = Color(0XFF757575)
 
 // Number colors
 val color1 = Color(0xFF0000FF)

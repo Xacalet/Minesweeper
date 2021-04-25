@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.xacalet.minesweeper.ui.component.Board
 import com.xacalet.minesweeper.ui.theme.MineSweeperTheme
+import com.xacalet.minesweeper.ui.theme.teal600
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : AppCompatActivity() {
@@ -19,13 +20,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MineSweeperTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Board()
-                }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = teal600
+            ) {
+                Board()
             }
         }
     }
