@@ -60,6 +60,8 @@
         <entry key="../../../../../layout/compose-model-1619309552457.xml" value="0.5242195909580194" />
         <entry key="../../../../../layout/compose-model-1619310705067.xml" value="0.67" />
         <entry key="../../../../../layout/compose-model-1619311540962.xml" value="0.35413642960812775" />
+        <entry key="../../../../../layout/compose-model-1619374917012.xml" value="0.3468795355587808" />
+        <entry key="../../../../../layout/compose-model-1619472723432.xml" value="0.6860986547085202" />
         <entry key="../../../../../layout/custom_preview.xml" value="0.35" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/drawable/flag.xml" value="0.2564814814814815" />
@@ -83,6 +85,8 @@
         <entry key="app/src/main/res/drawable/ic_smiling_face.xml" value="0.3425925925925926" />
         <entry key="app/src/main/res/drawable/mine.xml" value="0.2564814814814815" />
         <entry key="app/src/main/res/drawable/wrong_flag.xml" value="0.2564814814814815" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23854166666666668" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.23854166666666668" />
       </map>
     </option>
   </component>

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.xacalet.minesweeper.ui.component.Board
-import com.xacalet.minesweeper.ui.theme.teal600
+import com.xacalet.minesweeper.ui.theme.background
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = teal600
+                color = background
             ) {
                 Board()
             }

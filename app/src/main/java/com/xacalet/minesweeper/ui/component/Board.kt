@@ -28,8 +28,6 @@ import com.xacalet.minesweeper.R
 import com.xacalet.minesweeper.model.Difficulty
 import com.xacalet.minesweeper.model.GameRepository
 import com.xacalet.minesweeper.model.GameState
-import com.xacalet.minesweeper.ui.foundation.BevelType
-import com.xacalet.minesweeper.ui.foundation.bevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalFoundationApi
@@ -37,6 +35,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 @Preview
 fun Board() {
+    // TODO: Provide this as parameter of Board() composable function.
     val repo = remember { GameRepository() }
     Box(Modifier.wrapContentSize()) {
         Column(

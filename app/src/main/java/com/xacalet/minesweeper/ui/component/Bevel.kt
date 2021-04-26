@@ -1,4 +1,4 @@
-package com.xacalet.minesweeper.ui.foundation
+package com.xacalet.minesweeper.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

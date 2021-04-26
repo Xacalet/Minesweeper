@@ -2,11 +2,7 @@ package com.xacalet.minesweeper.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
-val teal600 = Color(0xFF00897B)
+val background = Color(0xFF00897B)
 val unpressedGray = Color(0XFFBDBDBD)
 val pressedGray = Color(0XFFC0C0C0)
 

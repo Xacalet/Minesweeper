@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.*
 import kotlin.math.max
 import kotlin.math.min
 
+//TODO: Create a repository interface from which this class must inherit from.
 class GameRepository {
 
     private var difficulty: Difficulty = Difficulty.Beginner

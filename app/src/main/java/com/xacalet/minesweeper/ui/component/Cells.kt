@@ -15,8 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.xacalet.minesweeper.R
 import com.xacalet.minesweeper.model.CellState
-import com.xacalet.minesweeper.ui.foundation.BevelType
-import com.xacalet.minesweeper.ui.foundation.bevel
 import com.xacalet.minesweeper.ui.theme.*
 import com.xacalet.minesweeper.ui.utils.NoIndication
 

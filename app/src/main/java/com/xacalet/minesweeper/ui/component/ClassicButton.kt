@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.unit.dp
-import com.xacalet.minesweeper.ui.foundation.drawBevel
 import com.xacalet.minesweeper.ui.theme.pressedGray
 import com.xacalet.minesweeper.ui.theme.unpressedGray
 
