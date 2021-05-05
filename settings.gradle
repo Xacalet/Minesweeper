@@ -1,2 +1,3 @@
 rootProject.name = "MineSweeper"
 include ':app'
+enableFeaturePreview("VERSION_CATALOGS")
