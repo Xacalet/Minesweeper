@@ -10,10 +10,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.xacalet.minesweeper.R
-import com.xacalet.minesweeper.model.Difficulty
-import com.xacalet.minesweeper.model.GameRepository
+import com.xacalet.minesweeper.data.GameRepository
+import com.xacalet.minesweeper.model.GameData
 import com.xacalet.minesweeper.model.GameState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -34,9 +31,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @Composable
 @Preview
-fun Board() {
+fun Screen() {
     // TODO: Provide this as parameter of Board() composable function.
-    val repo = remember { GameRepository() }
+    val gameRepository = remember { GameRepository() }
+    val gameDataState: State<GameData?> = gameRepository.gameData.collectAsState()
+    InitLifecycleEvents(
+        onResume = gameRepository::resumeTimer,
+        onPause = gameRepository::pauseTimer,
+    )
     Box(Modifier.wrapContentSize()) {
         Column(
             modifier = Modifier
@@ -45,16 +47,33 @@ fun Board() {
                 .bevel()
                 .padding(8.dp)
         ) {
-            ControlPanel(repo = repo)
-            Spacer(Modifier.size(8.dp))
-            CellGrid(repo = repo)
+            gameDataState.value?.let { gameData ->
+                val context = LocalContext.current
+                ControlPanel(
+                    gameData = gameData,
+                    clickRestartButton = gameRepository::resetGame
+                )
+                Spacer(Modifier.size(8.dp))
+                CellGrid(
+                    gameData = gameData,
+                    clickCell = { x, y -> gameRepository.onCellClick(x, y) },
+                    longClickCell = { x, y ->
+                        if (gameRepository.onCellLongClick(x, y)) {
+                            vibrate(context)
+                        }
+                    },
+                )
+            }
         }
     }
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun ControlPanel(repo: GameRepository) {
+fun ControlPanel(
+    gameData: GameData,
+    clickRestartButton: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,20 +82,20 @@ fun ControlPanel(repo: GameRepository) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val timer = repo.timer.collectAsState(0)
+        val timer = gameData.elapsedSeconds.collectAsState(0)
         NumericDisplay(value = timer.value)
         ClassicButton(
             modifier = Modifier
                 .background(Color.Gray)
                 .padding(2.dp)
                 .size(44.dp),
-            onClick = { repo.startNewGame(Difficulty.Beginner) }
+            onClick = clickRestartButton
         ) {
-            val resource = when {
+            val resource = when (gameData.state.collectAsState().value) {
                 // TODO: Respond to cell click event
                 //isPressed -> R.drawable.ic_surprised_face
-                repo.gameState == GameState.Won -> R.drawable.ic_smiley_sunglasses
-                repo.gameState == GameState.Lost -> R.drawable.ic_smiley_dizzy
+                GameState.Won -> R.drawable.ic_smiley_sunglasses
+                GameState.Lost -> R.drawable.ic_smiley_dizzy
                 else -> R.drawable.ic_smiley_smiling
             }
             Image(
@@ -85,20 +104,46 @@ fun ControlPanel(repo: GameRepository) {
                 contentDescription = null
             )
         }
-        NumericDisplay(value = repo.minesLeftCounter)
+        NumericDisplay(value = gameData.minesLeftCounter.collectAsState().value)
     }
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun CellGrid(repo: GameRepository) {
-    val context = LocalContext.current
+fun CellGrid(
+    gameData: GameData,
+    clickCell: (Int, Int) -> Unit,
+    longClickCell: (Int, Int) -> Unit
+) {
+    Box(Modifier.bevel(5.dp, BevelType.Lowered)) {
+        val (rows, columns) = remember { gameData.boardSize }
+        Column(Modifier.background(Color.Gray)) {
+            (0 until rows).forEach { y ->
+                Row {
+                    (0 until columns).forEach { x ->
+                        Cell(
+                            modifier = Modifier.size(32.dp),
+                            state = gameData.cellStates[x][y].collectAsState().value,
+                            onClick = { clickCell(x, y) },
+                            onLongClick = { longClickCell(x, y) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
 
+@Composable
+private fun InitLifecycleEvents(
+    onResume: () -> Unit,
+    onPause: () -> Unit,
+) {
     val lifecycleObserver = remember {
         LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_RESUME -> repo.startTimer()
-                Lifecycle.Event.ON_PAUSE -> repo.stopTimer()
+                Lifecycle.Event.ON_RESUME -> onResume()
+                Lifecycle.Event.ON_PAUSE -> onPause()
                 else -> Unit
             }
         }
@@ -109,28 +154,6 @@ fun CellGrid(repo: GameRepository) {
         lifecycle.addObserver(lifecycleObserver)
         onDispose {
             lifecycle.removeObserver(lifecycleObserver)
-        }
-    }
-
-    Box(Modifier.bevel(5.dp, BevelType.Lowered)) {
-        val (rows, columns) = repo.boardSize
-        Column(Modifier.background(Color.Gray)) {
-            (0 until rows).forEach { y ->
-                Row {
-                    (0 until columns).forEach { x ->
-                        Cell(
-                            modifier = Modifier.size(32.dp),
-                            state = repo.cellStates[x][y].value,
-                            onClick = { repo.onCellClick(x, y) },
-                            onLongClick = {
-                                if (repo.onCellLongClick(x, y)) {
-                                    vibrate(context)
-                                }
-                            }
-                        )
-                    }
-                }
-            }
         }
     }
 }

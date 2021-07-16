@@ -30,7 +30,6 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
 
     buildFeatures {
@@ -44,10 +43,10 @@ android {
 
 dependencies {
 
+    implementation libs.kotlin.core
     implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
     implementation libs.androidx.core
     implementation libs.bundles.compose
-    implementation libs.material
     testImplementation libs.junit
 }
