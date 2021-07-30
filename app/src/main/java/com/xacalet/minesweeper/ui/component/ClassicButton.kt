@@ -26,6 +26,7 @@ fun ClassicButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     onLongClick: () -> Unit = {},
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable BoxScope.() -> Unit = {}
 ) {
     Box(
@@ -33,7 +34,7 @@ fun ClassicButton(
             .fillMaxSize()
             .combinedClickable(
                 indication = ClassicButtonIndication,
-                interactionSource = remember { MutableInteractionSource() },
+                interactionSource = interactionSource,
                 onClick = onClick,
                 onLongClick = onLongClick
             ),

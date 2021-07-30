@@ -2,9 +2,11 @@ package com.xacalet.minesweeper.ui.component
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,14 +27,30 @@ fun Cell(
     state: CellState,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
+    onPressed: (Boolean) -> Unit
 ) {
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    val isPressed = interactionSource.collectIsPressedAsState()
+
+    LaunchedEffect(isPressed.value) {
+        onPressed(isPressed.value)
+    }
+
     Box(modifier = modifier) {
         when (state) {
-            CellState.Covered -> ClassicButton(onClick = onClick, onLongClick = onLongClick)
-            CellState.Flagged -> FlagCell(onLongClick = onLongClick)
+            CellState.Covered -> ClassicButton(
+                onClick = onClick,
+                onLongClick = onLongClick,
+                interactionSource = interactionSource
+            )
+            CellState.Flagged -> FlagCell(
+                onLongClick = onLongClick,
+                interactionSource = interactionSource
+            )
             is CellState.Safe -> SafeCell(
                 contiguousMineCount = state.contiguousMineCount,
-                onClick = onClick
+                onClick = onClick,
+                interactionSource = interactionSource
             )
             is CellState.Mine -> MineCell(hasExploded = state.exploded)
             CellState.NotAMine -> WrongFlagCell()
@@ -60,7 +78,8 @@ fun UncoveredCell(
 @Composable
 fun FlagCell(
     modifier: Modifier = Modifier,
-    onLongClick: () -> Unit
+    onLongClick: () -> Unit,
+    interactionSource: MutableInteractionSource
 ) {
     Box(
         modifier = modifier
@@ -69,7 +88,7 @@ fun FlagCell(
             .background(unpressedGray)
             .combinedClickable(
                 indication = NoIndication,
-                interactionSource = remember { MutableInteractionSource() },
+                interactionSource = interactionSource,
                 onClick = { },
                 onLongClick = onLongClick
             ),
@@ -87,13 +106,21 @@ fun FlagCell(
 
 @ExperimentalFoundationApi
 @Composable
-fun SafeCell(contiguousMineCount: Int, onClick: () -> Unit) {
+fun SafeCell(
+    contiguousMineCount: Int,
+    onClick: () -> Unit,
+    interactionSource: MutableInteractionSource
+) {
     UncoveredCell {
         if (contiguousMineCount > 0) {
             Text(
                 modifier = Modifier
                     .fillMaxSize()
-                    .clickable(onClick = onClick),
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClick
+                    ),
                 style = contiguousMineCountTextStyle,
                 color = getTextColorByContiguousMineCount(contiguousMineCount),
                 text = "$contiguousMineCount"
@@ -160,5 +187,5 @@ fun ButtonPreview() {
             setCellState(CellState.Covered)
     }
 
-    Cell(Modifier.size(32.dp), cellState, onClick, onDoubleClick)
+    Cell(Modifier.size(32.dp), cellState, onClick, onDoubleClick, {})
 }

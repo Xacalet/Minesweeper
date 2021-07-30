@@ -7,7 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.xacalet.minesweeper.ui.component.Screen
+import com.xacalet.minesweeper.ui.Screen
 import com.xacalet.minesweeper.ui.theme.background
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

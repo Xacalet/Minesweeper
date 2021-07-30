@@ -1,11 +1,5 @@
-package com.xacalet.minesweeper.ui.component
+package com.xacalet.minesweeper.ui
 
-import android.content.Context
-import android.content.Context.VIBRATOR_SERVICE
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.VibrationEffect.createOneShot
-import android.os.Vibrator
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,8 +17,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.xacalet.minesweeper.R
 import com.xacalet.minesweeper.data.GameRepository
+import com.xacalet.minesweeper.extensions.vibrate
 import com.xacalet.minesweeper.model.GameData
 import com.xacalet.minesweeper.model.GameState
+import com.xacalet.minesweeper.ui.component.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalFoundationApi
@@ -48,10 +44,12 @@ fun Screen() {
                 .padding(8.dp)
         ) {
             gameDataState.value?.let { gameData ->
+                val isAnyCellPressed = remember { mutableStateOf(false) }
                 val context = LocalContext.current
                 ControlPanel(
                     gameData = gameData,
-                    clickRestartButton = gameRepository::resetGame
+                    clickRestartButton = gameRepository::resetGame,
+                    isPressed = isAnyCellPressed
                 )
                 Spacer(Modifier.size(8.dp))
                 CellGrid(
@@ -59,9 +57,10 @@ fun Screen() {
                     clickCell = { x, y -> gameRepository.onCellClick(x, y) },
                     longClickCell = { x, y ->
                         if (gameRepository.onCellLongClick(x, y)) {
-                            vibrate(context)
+                            context.vibrate()
                         }
                     },
+                    cellPressed = { isPressed -> isAnyCellPressed.value = isPressed }
                 )
             }
         }
@@ -72,7 +71,8 @@ fun Screen() {
 @Composable
 fun ControlPanel(
     gameData: GameData,
-    clickRestartButton: () -> Unit
+    clickRestartButton: () -> Unit,
+    isPressed: State<Boolean>
 ) {
     Row(
         modifier = Modifier
@@ -91,13 +91,17 @@ fun ControlPanel(
                 .size(44.dp),
             onClick = clickRestartButton
         ) {
-            val resource = when (gameData.state.collectAsState().value) {
-                // TODO: Respond to cell click event
-                //isPressed -> R.drawable.ic_surprised_face
-                GameState.Won -> R.drawable.ic_smiley_sunglasses
-                GameState.Lost -> R.drawable.ic_smiley_dizzy
-                else -> R.drawable.ic_smiley_smiling
+            val state = gameData.state.collectAsState().value
+            val resource = if (isPressed.value) {
+                R.drawable.ic_smiley_surprised
+            } else {
+                when (state) {
+                    GameState.Won -> R.drawable.ic_smiley_sunglasses
+                    GameState.Lost -> R.drawable.ic_smiley_dizzy
+                    else -> R.drawable.ic_smiley_smiling
+                }
             }
+
             Image(
                 modifier = Modifier.padding(6.dp),
                 painter = painterResource(resource),
@@ -113,7 +117,8 @@ fun ControlPanel(
 fun CellGrid(
     gameData: GameData,
     clickCell: (Int, Int) -> Unit,
-    longClickCell: (Int, Int) -> Unit
+    longClickCell: (Int, Int) -> Unit,
+    cellPressed: (Boolean) -> Unit
 ) {
     Box(Modifier.bevel(5.dp, BevelType.Lowered)) {
         val (rows, columns) = remember { gameData.boardSize }
@@ -125,7 +130,8 @@ fun CellGrid(
                             modifier = Modifier.size(32.dp),
                             state = gameData.cellStates[x][y].collectAsState().value,
                             onClick = { clickCell(x, y) },
-                            onLongClick = { longClickCell(x, y) }
+                            onLongClick = { longClickCell(x, y) },
+                            onPressed = cellPressed
                         )
                     }
                 }
@@ -155,15 +161,5 @@ private fun InitLifecycleEvents(
         onDispose {
             lifecycle.removeObserver(lifecycleObserver)
         }
-    }
-}
-
-private fun vibrate(context: Context) {
-    val vibrator = context.getSystemService(VIBRATOR_SERVICE) as? Vibrator
-    val duration = 100L
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        vibrator?.vibrate(createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
-    } else {
-        vibrator?.vibrate(duration)
     }
 }

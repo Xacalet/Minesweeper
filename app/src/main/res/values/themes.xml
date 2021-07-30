@@ -7,5 +7,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/teal_800</item>
         <item name="android:windowLightStatusBar">false</item>
+        <!-- Some manufacturers set the following default value to true -->
+        <item name="android:forceDarkAllowed">false</item>
     </style>
 </resources>

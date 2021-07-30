@@ -104,7 +104,7 @@ class Game(
             }
             else -> Unit
         }
-        if (uncoveredCellCount == mineCells.count()) {
+        if (uncoveredCellCount == (rows * columns) - mineCells.count()) {
             finishGame(true)
         }
     }
@@ -119,6 +119,7 @@ class Game(
     private fun uncoverContiguousSafeCells(cell: Cell) {
         val contiguousMineCount = cell.contiguousCells.count { it.isMine }
         cell.state.value = CellState.Safe(contiguousMineCount)
+        uncoveredCellCount++
         if (contiguousMineCount == 0) {
             cell.contiguousCells.forEach { contiguousCell ->
                 if (contiguousCell.state.value == CellState.Covered && !contiguousCell.isMine) {
