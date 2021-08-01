@@ -1,6 +1,10 @@
 # :bomb: Minesweeper :triangular_flag_on_post:
 The classic Minesweeper game for Android with the ol' good Windows 3.1 appearance, entirely written with :sparkles:Jetpack Compose:sparkles:.
 
+## 🚧 TODO 🚧
+- Add a difficulty selector that fits with the general look-and-feel of the app. Also, figure out how to bring the difficulty system from the classic game for Windows intto a small screen environment.
+- Migrate this project to KMP (at least for Android). 
+
 ## Instructions
  - The game is played on a board of 12x9 cells. 20 of these cells are hiding a mine that will explode if player uncovers them. The rest of cells are safe to uncover. Click on each cell to revel what's beneath. The goal of the game is to uncover all the cells from the board that do not contain a mine. Uncovering a mined cell will result in losing the game.
  <p align="center">
@@ -8,8 +12,6 @@ The classic Minesweeper game for Android with the ol' good Windows 3.1 appearanc
   <br>
   <i>The board contains the following elements: A timer, activated when the first cell is uncovered, and paused when the game is on background; The New Game button; A counter of mines left to flag (it can be less than zero if there are more flags than mines) </i>
 </p>
- 
- 
  
  - An uncovered cell will display the number of neighbor cells that contain a mine, ranging from 1 to 8. A neighbor is any of the 8 cells sorrounding the target cell. If a cell with no close mine is revealed, it won't show any number, and the game will recursively uncover its neighbors until reaching cells with close mines or the edges of the board. 
 <p align="center">
