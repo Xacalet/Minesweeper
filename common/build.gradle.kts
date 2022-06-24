@@ -21,6 +21,8 @@ kotlin {
                 api(compose.materialIconsExtended)
                 api(compose.ui)
                 api(compose.uiTooling)
+                api(compose.preview)
+                implementation(libs.kotlin.coroutinesCore)
             }
         }
         val commonTest by getting
@@ -46,6 +48,7 @@ kotlin {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
