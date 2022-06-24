@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
+    id("java")
     kotlin("multiplatform")
     alias(libs.plugins.composeMultiplatform)
 }
@@ -18,6 +19,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(projects.common)
+                implementation(compose.desktop.currentOs)
             }
         }
         val jvmTest by getting
@@ -33,4 +35,9 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

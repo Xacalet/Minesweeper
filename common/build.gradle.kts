@@ -22,6 +22,7 @@ kotlin {
                 api(compose.ui)
                 api(compose.uiTooling)
                 api(compose.preview)
+                api(libs.kotlin.coroutinesSwing)
                 implementation(libs.kotlin.coroutinesCore)
             }
         }
