@@ -3,17 +3,14 @@ package com.xacalet.minesweeper
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.xacalet.minesweeper.common.ui.Screen
+import com.xacalet.minesweeper.common.ui.MainScreen
 import com.xacalet.minesweeper.common.ui.theme.background
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : AppCompatActivity() {
 
-    @OptIn(ExperimentalFoundationApi::class, ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,7 +18,7 @@ class MainActivity : AppCompatActivity() {
                 modifier = Modifier.fillMaxSize(),
                 color = background
             ) {
-                Screen()
+                MainScreen()
             }
         }
     }

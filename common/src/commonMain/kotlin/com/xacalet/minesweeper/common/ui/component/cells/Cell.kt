@@ -11,7 +11,7 @@ import com.xacalet.minesweeper.common.model.CellState
 import com.xacalet.minesweeper.common.ui.component.ClassicButton
 
 @Composable
-fun Cell(
+internal fun Cell(
     modifier: Modifier = Modifier,
     state: CellState,
     onClick: () -> Unit,

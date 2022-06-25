@@ -1,7 +1,6 @@
 package com.xacalet.minesweeper.common.ui.component.cells
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -10,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.xacalet.minesweeper.common.model.CellState
 
-@ExperimentalFoundationApi
 @Preview
 @Composable
 private fun ButtonPreview() {
@@ -26,5 +24,5 @@ private fun ButtonPreview() {
             setCellState(CellState.Covered)
     }
 
-    Cell(Modifier.size(32.dp), cellState, onClick, onDoubleClick, {})
+    Cell(Modifier.size(32.dp), cellState, onClick, onDoubleClick) {}
 }

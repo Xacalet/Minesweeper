@@ -23,7 +23,7 @@ internal expect fun SevenSegment(
 )
 
 @Composable
-fun NumericDisplay(
+internal fun NumericDisplay(
     modifier: Modifier = Modifier,
     value: Int
 ) {
