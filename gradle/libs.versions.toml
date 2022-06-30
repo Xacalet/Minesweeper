@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "7.4.0-alpha05"
+androidGradlePlugin = "7.4.0-alpha07"
 compileSdk = "32"
 compose = "1.2.0-rc02"
 composeMultiplatform = "1.2.0-alpha01-dev724"
