@@ -22,7 +22,6 @@ kotlin {
                 api(compose.ui)
                 api(compose.uiTooling)
                 api(compose.preview)
-                api(libs.kotlin.coroutinesSwing)
                 implementation(libs.kotlin.coroutinesCore)
             }
         }
@@ -38,7 +37,11 @@ kotlin {
                 implementation(libs.junit)
             }
         }
-        val desktopMain by getting
+        val desktopMain by getting {
+            dependencies {
+                api(libs.kotlin.coroutinesSwing)
+            }
+        }
         val desktopTest by getting
 
         all {
