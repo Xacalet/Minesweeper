@@ -17,7 +17,7 @@ class GameRepository {
         newGame(Difficulty.Beginner)
     }
 
-    fun newGame(difficulty: Difficulty) {
+    private fun newGame(difficulty: Difficulty) {
         game = Game(difficulty)
         _gameData.value = GameData(
             boardSize = difficulty.boardSize,
