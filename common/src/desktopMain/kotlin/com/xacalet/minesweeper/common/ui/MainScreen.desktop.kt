@@ -6,7 +6,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.xacalet.minesweeper.common.data.GameRepository
 
-// TODO: Join fun Screen in common
 @Composable
 actual fun MainScreen() {
     // TODO: Provide this as parameter of Board() composable function.
