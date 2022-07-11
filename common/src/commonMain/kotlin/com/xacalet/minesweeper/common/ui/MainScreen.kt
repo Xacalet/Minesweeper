@@ -1,5 +1,6 @@
 package com.xacalet.minesweeper.common.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import com.xacalet.minesweeper.common.ui.component.ClassicButton
 import com.xacalet.minesweeper.common.ui.component.NumericDisplay
 import com.xacalet.minesweeper.common.ui.component.bevel
 import com.xacalet.minesweeper.common.ui.component.cells.Cell
+import com.xacalet.minesweeper.common.ui.resources.PainterResources
 
 @Composable
 expect fun MainScreen()
@@ -69,7 +71,23 @@ internal fun GameBoard(
 }
 
 @Composable
-internal expect fun GameStateImage(isPressed: Boolean, gameState: GameState)
+internal fun GameStateImage(isPressed: Boolean, gameState: GameState) {
+    val painter = if (isPressed) {
+        PainterResources.iconSmileySurprised()
+    } else {
+        when (gameState) {
+            GameState.Won -> PainterResources.iconSmileySunglasses()
+            GameState.Lost -> PainterResources.iconSmileyDizzy()
+            else -> PainterResources.iconSmileySmiling()
+        }
+    }
+
+    Image(
+        modifier = Modifier.padding(6.dp),
+        painter = painter,
+        contentDescription = null
+    )
+}
 
 @Composable
 internal fun ControlPanel(

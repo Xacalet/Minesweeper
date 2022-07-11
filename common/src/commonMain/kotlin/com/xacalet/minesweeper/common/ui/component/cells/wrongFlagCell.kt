@@ -1,13 +1,22 @@
 package com.xacalet.minesweeper.common.ui.component.cells
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-
-@Composable
-internal expect fun WrongFlagCellImage()
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.xacalet.minesweeper.common.ui.resources.PainterResources
 
 @Composable
 internal fun WrongFlagCell() {
     UncoveredCell {
-        WrongFlagCellImage()
+        Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp),
+            painter = PainterResources.iconCellWrongFlag(),
+            contentDescription = null
+        )
     }
 }

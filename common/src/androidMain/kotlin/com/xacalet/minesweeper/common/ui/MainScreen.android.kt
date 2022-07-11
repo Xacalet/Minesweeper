@@ -36,25 +36,6 @@ actual fun MainScreen() {
 }
 
 @Composable
-internal actual fun GameStateImage(isPressed: Boolean, gameState: GameState) {
-    @DrawableRes val resource = if (isPressed) {
-        R.drawable.ic_smiley_surprised
-    } else {
-        when (gameState) {
-            GameState.Won -> R.drawable.ic_smiley_sunglasses
-            GameState.Lost -> R.drawable.ic_smiley_dizzy
-            else -> R.drawable.ic_smiley_smiling
-        }
-    }
-
-    Image(
-        modifier = Modifier.padding(6.dp),
-        painter = painterResource(resource),
-        contentDescription = null
-    )
-}
-
-@Composable
 private fun InitLifecycleEvents(
     onResume: () -> Unit,
     onPause: () -> Unit,
