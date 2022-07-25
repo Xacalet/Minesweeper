@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +31,7 @@ import com.xacalet.minesweeper.common.ui.component.ClassicButton
 import com.xacalet.minesweeper.common.ui.component.NumericDisplay
 import com.xacalet.minesweeper.common.ui.component.bevel
 import com.xacalet.minesweeper.common.ui.component.cells.Cell
+import com.xacalet.minesweeper.common.ui.resources.DimenResources
 import com.xacalet.minesweeper.common.ui.resources.PainterResources
 
 @Composable
@@ -71,7 +73,11 @@ internal fun GameBoard(
 }
 
 @Composable
-internal fun GameStateImage(isPressed: Boolean, gameState: GameState) {
+internal fun GameStateImage(
+    isPressed: Boolean,
+    gameState: GameState,
+    modifier: Modifier = Modifier
+) {
     val painter = if (isPressed) {
         PainterResources.iconSmileySurprised()
     } else {
@@ -83,7 +89,7 @@ internal fun GameStateImage(isPressed: Boolean, gameState: GameState) {
     }
 
     Image(
-        modifier = Modifier.padding(6.dp),
+        modifier = modifier.padding(6.dp),
         painter = painter,
         contentDescription = null
     )
@@ -104,7 +110,10 @@ internal fun ControlPanel(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val timer = gameData.elapsedSeconds.collectAsState(0)
-        NumericDisplay(value = timer.value)
+        NumericDisplay(
+            value = timer.value,
+            modifier = Modifier.height(DimenResources.NumericDisplayHeight)
+        )
         ClassicButton(
             modifier = Modifier
                 .background(Color.Gray)
@@ -112,9 +121,16 @@ internal fun ControlPanel(
                 .size(44.dp),
             onClick = clickRestartButton
         ) {
-            GameStateImage(isPressed.value, gameData.state.value)
+            GameStateImage(
+                isPressed.value,
+                gameData.state.value,
+                modifier = Modifier.align(Alignment.Center)
+            )
         }
-        NumericDisplay(value = gameData.minesLeftCounter.collectAsState().value)
+        NumericDisplay(
+            value = gameData.minesLeftCounter.collectAsState().value,
+            modifier = Modifier.height(DimenResources.NumericDisplayHeight)
+        )
     }
 }
 

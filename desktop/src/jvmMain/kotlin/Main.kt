@@ -1,6 +1,6 @@
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.WindowPosition
@@ -14,7 +14,7 @@ fun main() = application {
         title = "Minesweeper",
         state = WindowState(
             position = WindowPosition.Aligned(Alignment.Center),
-            size = DpSize(320.dp, 550.dp),
+            size = DpSize(Dp.Unspecified, Dp.Unspecified),
             placement = WindowPlacement.Floating
         ),
         resizable = false
