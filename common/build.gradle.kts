@@ -3,7 +3,6 @@ import org.jetbrains.compose.compose
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     alias(libs.plugins.composeMultiplatform)
     id("com.android.library")
 }
@@ -18,14 +17,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Common"
-        homepage = "https://https://github.com/Xacalet/Minesweeper"
-        ios.deploymentTarget = "14.1"
-        framework {
-            baseName = "common"
-        }
-    }
     sourceSets {
         val commonMain by getting {
             dependencies {
