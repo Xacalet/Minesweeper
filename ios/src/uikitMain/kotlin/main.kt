@@ -1,9 +1,5 @@
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Surface
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Application
 import com.xacalet.minesweeper.common.ui.MainScreen
-import com.xacalet.minesweeper.common.ui.theme.background
 import kotlinx.cinterop.ObjCObjectBase
 import kotlinx.cinterop.autoreleasepool
 import kotlinx.cinterop.cstr
@@ -46,12 +42,7 @@ class SkikoAppDelegate @ObjCObjectBase.OverrideInit constructor() : UIResponder(
     ): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         window!!.rootViewController = Application("Minesweeper") {
-            Surface(
-                modifier = Modifier.fillMaxSize(),
-                color = background
-            ) {
-                MainScreen()
-            }
+            MainScreen()
         }
         window!!.makeKeyAndVisible()
         return true
