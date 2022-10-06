@@ -1,5 +1,3 @@
-import org.jetbrains.compose.compose
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
@@ -16,6 +14,10 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -23,7 +25,6 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
-                api(compose.materialIconsExtended)
                 api(compose.ui)
                 implementation(libs.kotlin.coroutinesCore)
             }
@@ -68,6 +69,8 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        val jsMain by getting
+        val jsTest by getting
 
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
