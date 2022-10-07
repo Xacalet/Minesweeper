@@ -2,7 +2,7 @@
 The classic Minesweeper game for Android with the ol' good Windows 3.1 appearance, entirely written with :sparkles:Jetpack Compose:sparkles:.
 
 ## Run on iOS simulator
-`./gradlew iosDeployIPhone8Debug`
+`./gradlew iosDeployIPhone13ProMaxDebug`
 `./gradlew iosDeployIPadDebug`
 
 ## 🚧 TODO 🚧

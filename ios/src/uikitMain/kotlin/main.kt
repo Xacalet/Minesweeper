@@ -40,10 +40,10 @@ class SkikoAppDelegate @OverrideInit constructor() : UIResponder(),
         didFinishLaunchingWithOptions: Map<Any?, *>?
     ): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
-        window!!.rootViewController = Application("Minesweeper") {
+        window?.rootViewController = Application("Minesweeper") {
             MainScreen()
         }
-        window!!.makeKeyAndVisible()
+        window?.makeKeyAndVisible()
         return true
     }
 }
