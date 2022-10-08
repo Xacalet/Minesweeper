@@ -56,9 +56,9 @@ compose.experimental {
         bundleIdPrefix = "com.xacalet"
         projectName = "Minesweeper"
         deployConfigurations {
-            simulator("IPhone8") {
-                //Usage: ./gradlew iosDeployIPhone8Debug
-                device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_8
+            simulator("IPhone13ProMax") {
+                //Usage: ./gradlew iosDeployIPhone13ProMaxDebug
+                device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_13_PRO_MAX
             }
             simulator("IPad") {
                 //Usage: ./gradlew iosDeployIPadDebug

@@ -1,6 +1,5 @@
 import androidx.compose.ui.window.Application
 import com.xacalet.minesweeper.common.ui.MainScreen
-import kotlinx.cinterop.ObjCObjectBase
 import kotlinx.cinterop.autoreleasepool
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -26,7 +25,7 @@ fun main() {
     }
 }
 
-class SkikoAppDelegate @ObjCObjectBase.OverrideInit constructor() : UIResponder(),
+class SkikoAppDelegate @OverrideInit constructor() : UIResponder(),
     UIApplicationDelegateProtocol {
     companion object : UIResponderMeta(), UIApplicationDelegateProtocolMeta
 
@@ -41,10 +40,10 @@ class SkikoAppDelegate @ObjCObjectBase.OverrideInit constructor() : UIResponder(
         didFinishLaunchingWithOptions: Map<Any?, *>?
     ): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
-        window!!.rootViewController = Application("Minesweeper") {
+        window?.rootViewController = Application("Minesweeper") {
             MainScreen()
         }
-        window!!.makeKeyAndVisible()
+        window?.makeKeyAndVisible()
         return true
     }
 }
