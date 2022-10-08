@@ -5,6 +5,9 @@ The classic Minesweeper game for Android with the ol' good Windows 3.1 appearanc
 `./gradlew iosDeployIPhone13ProMaxDebug`
 `./gradlew iosDeployIPadDebug`
 
+## Run on Web
+`./gradlew jsBrowserRun`
+
 ## 🚧 TODO 🚧
 - Add a difficulty selector that fits with the general look-and-feel of the app. Also, figure out how to bring the difficulty system from the classic game for Windows into a small screen environment.
 
