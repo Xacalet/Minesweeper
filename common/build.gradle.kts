@@ -1,5 +1,3 @@
-import org.jetbrains.compose.compose
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     kotlin("multiplatform")
@@ -8,20 +6,24 @@ plugins {
 }
 
 group = "com.xacalet.minesweeper.common"
+version = "1.0"
 
 kotlin {
     android()
     jvm("desktop")
+    ios()
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
-                api(compose.materialIconsExtended)
                 api(compose.ui)
-                api(compose.uiTooling)
-                api(compose.preview)
                 implementation(libs.kotlin.coroutinesCore)
             }
         }
@@ -30,6 +32,8 @@ kotlin {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.core)
+                api(compose.uiTooling)
+                api(compose.preview)
             }
         }
         val androidTest by getting {
@@ -40,9 +44,15 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 api(libs.kotlin.coroutinesSwing)
+                api(compose.uiTooling)
+                api(compose.preview)
             }
         }
         val desktopTest by getting
+        val iosMain by getting
+        val iosTest by getting
+        val jsMain by getting
+        val jsTest by getting
 
         all {
             languageSettings.optIn("kotlin.RequiresOptIn")
