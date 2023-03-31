@@ -43,6 +43,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+    namespace = "com.xacalet.minesweeper"
 }
 
 dependencies {

@@ -36,7 +36,7 @@ kotlin {
                 api(compose.preview)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(libs.junit)
             }
