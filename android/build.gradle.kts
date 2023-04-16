@@ -48,9 +48,6 @@ android {
 
 dependencies {
     implementation(projects.common)
-    implementation(libs.kotlin.core)
     implementation(libs.androidx.activityCompose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core)
     testImplementation(libs.junit)
 }

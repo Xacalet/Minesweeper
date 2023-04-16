@@ -1,8 +1,11 @@
 [versions]
+activity = "1.7.0"
 androidGradlePlugin = "8.0.0"
+appcompat = "1.6.1"
 compileSdk = "33"
 composeCompiler = "1.4.5"
 composeMultiplatform = "1.4.0"
+core = "1.10.0"
 kotlin = "1.8.20"
 kotlinCoroutines = "1.6.4"
 minSdk = "24"
@@ -11,13 +14,10 @@ targetSdk = "33"
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 
-androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.7.0" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "core" }
 
-androidx-core = { module = "androidx.core:core-ktx", version = "1.9.0" }
-
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
-
-kotlin-core = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
 kotlin-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 kotlin-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinCoroutines" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

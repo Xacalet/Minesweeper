@@ -20,10 +20,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.ui)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
                 implementation(libs.kotlin.coroutinesCore)
             }
         }
@@ -32,8 +32,8 @@ kotlin {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.core)
-                api(compose.uiTooling)
-                api(compose.preview)
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
             }
         }
         val androidUnitTest by getting {
@@ -43,9 +43,9 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                api(libs.kotlin.coroutinesSwing)
-                api(compose.uiTooling)
-                api(compose.preview)
+                implementation(libs.kotlin.coroutinesSwing)
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
             }
         }
         val desktopTest by getting
