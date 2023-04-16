@@ -68,4 +68,8 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.xacalet.minesweeper.common"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }

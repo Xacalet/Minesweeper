@@ -1,9 +1,9 @@
 [versions]
-androidGradlePlugin = "7.4.2"
+androidGradlePlugin = "8.0.0"
 compileSdk = "33"
-composeCompiler = "1.4.4"
-composeMultiplatform = "1.4.0-rc03"
-kotlin = "1.8.10"
+composeCompiler = "1.4.5"
+composeMultiplatform = "1.4.0"
+kotlin = "1.8.20"
 kotlinCoroutines = "1.6.4"
 minSdk = "24"
 targetSdk = "33"
