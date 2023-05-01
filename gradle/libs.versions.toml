@@ -1,13 +1,15 @@
 [versions]
-activity = "1.7.0"
+activity = "1.7.1"
 androidGradlePlugin = "8.0.0"
 appcompat = "1.6.1"
 compileSdk = "33"
 composeCompiler = "1.4.5"
 composeMultiplatform = "1.4.0"
 core = "1.10.0"
+junit = "4.13.2"
 kotlin = "1.8.20"
 kotlinCoroutines = "1.6.4"
+material = "1.8.0"
 minSdk = "24"
 targetSdk = "33"
 
@@ -22,9 +24,9 @@ kotlin-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-cor
 kotlin-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinCoroutines" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
-material = { module = "com.google.android.material:material", version = "1.8.0" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 
-junit = { module = "junit:junit", version = "4.13.2" }
+junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

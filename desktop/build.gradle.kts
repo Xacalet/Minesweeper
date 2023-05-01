@@ -12,7 +12,9 @@ group = "com.xacalet.minesweeper"
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions {
+                jvmToolchain(17)
+            }
         }
     }
     sourceSets {
