@@ -20,10 +20,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                api(compose.ui)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
                 implementation(libs.kotlin.coroutinesCore)
             }
         }
@@ -32,20 +32,20 @@ kotlin {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.core)
-                api(compose.uiTooling)
-                api(compose.preview)
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(libs.junit)
             }
         }
         val desktopMain by getting {
             dependencies {
-                api(libs.kotlin.coroutinesSwing)
-                api(compose.uiTooling)
-                api(compose.preview)
+                implementation(libs.kotlin.coroutinesSwing)
+                implementation(compose.uiTooling)
+                implementation(compose.preview)
             }
         }
         val desktopTest by getting
@@ -68,4 +68,8 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
     }
     namespace = "com.xacalet.minesweeper.common"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }

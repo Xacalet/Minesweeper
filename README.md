@@ -1,6 +1,9 @@
 # :bomb: Minesweeper Multiplatform :triangular_flag_on_post:
 The classic Minesweeper game for Android, Desktop, iOS and Web with the ol' good Windows 3.1 appearance, entirely written with :sparkles:Jetpack Compose:sparkles:.
 
+## Run on Desktop
+`./gradlew :desktop:run`
+
 ## Run on iOS simulator
 `./gradlew iosDeployIPhone13ProMaxDebug`
 `./gradlew iosDeployIPadDebug`
