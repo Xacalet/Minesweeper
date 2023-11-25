@@ -1,7 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
-    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 group = "com.xacalet.minesweeper.web"
@@ -15,9 +15,11 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(projects.common)
+                implementation(projects.composeApp)
                 implementation(compose.html.core)
                 implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
             }
         }
         val jsTest by getting

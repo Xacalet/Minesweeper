@@ -1,32 +1,29 @@
 [versions]
-activity = "1.7.1"
-androidGradlePlugin = "8.0.0"
+activity = "1.8.1"
+androidGradlePlugin = "8.1.4"
 appcompat = "1.6.1"
-compileSdk = "33"
-composeCompiler = "1.4.5"
-composeMultiplatform = "1.4.0"
-core = "1.10.0"
-junit = "4.13.2"
-kotlin = "1.8.20"
-kotlinCoroutines = "1.6.4"
-material = "1.8.0"
+compileSdk = "34"
+compose = "1.5.4"
+composeCompiler = "1.5.4"
+jetbrainsCompose = "1.5.10"
+kotlin = "1.9.20"
+kotlinCoroutines = "1.7.3"
 minSdk = "24"
-targetSdk = "33"
+targetSdk = "34"
 
 [libraries]
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
-
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
-androidx-core = { module = "androidx.core:core-ktx", version.ref = "core" }
+
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 
 kotlin-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 kotlin-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinCoroutines" }
-kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-
-material = { module = "com.google.android.material:material", version.ref = "material" }
-
-junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "jetbrainsCompose" }
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
