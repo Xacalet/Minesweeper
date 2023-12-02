@@ -18,5 +18,4 @@ dependencyResolutionManagement {
     }
 }
 
-include(":web")
 include(":composeApp")

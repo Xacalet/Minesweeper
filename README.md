@@ -1,14 +1,17 @@
 # :bomb: Minesweeper Multiplatform :triangular_flag_on_post:
 The classic Minesweeper game for Android, Desktop, iOS and Web with the ol' good Windows 3.1 appearance, entirely written with :sparkles:Jetpack Compose:sparkles:.
 
+## Run on Android
+Run it through Android Studio or IntelliJ IDEA.
+
 ## Run on Desktop
-`./gradlew run`
+`./gradlew :composeApp:run`
 
 ## Run on iOS simulator
-Run it through Android Studio or IntelliJ IDEA, or directly through the XCode project.
+Run it through Android Studio or IntelliJ IDEA, or through the XCode project.
 
 ## Run on Web
-`./gradlew :web:jsBrowserRun`
+`./gradlew :composeApp:jsBrowserRun`
 
 ## 🚧 TODO 🚧
 - Add a difficulty selector that fits with the general look-and-feel of the app. Also, figure out how to bring the difficulty system from the classic game for Windows into a small screen environment.

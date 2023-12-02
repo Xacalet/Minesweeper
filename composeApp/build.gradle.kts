@@ -29,7 +29,7 @@ kotlin {
         }
     }
 
-    js(IR) {
+    js {
         browser()
         binaries.executable()
     }
@@ -101,7 +101,7 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "Main_desktopKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

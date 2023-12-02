@@ -5,9 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import com.xacalet.minesweeper.common.ui.MainScreen
-import com.xacalet.minesweeper.common.ui.theme.mineSweeperFontFamily
+import com.xacalet.minesweeper.ui.MainScreen
+import com.xacalet.minesweeper.ui.theme.mineSweeperFontFamily
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
