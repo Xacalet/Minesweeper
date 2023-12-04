@@ -87,3 +87,6 @@ lint/tmp/
 # Android Profiling
 *.hprof
 /.idea/
+
+# Web
+*yarn.lock
