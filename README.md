@@ -1,4 +1,4 @@
-# :bomb: Minesweeper Multiplatform :triangular_flag_on_post:
+# 💣 Minesweeper Multiplatform 🚩
 The classic Minesweeper game for Android, Desktop, iOS and Web with the ol' good Windows 3.1 appearance, entirely written with :sparkles:Jetpack Compose:sparkles:.
 
 ## Run on Android
