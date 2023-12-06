@@ -14,8 +14,7 @@ Run it through Android Studio or IntelliJ IDEA, or through the XCode project.
 `./gradlew :composeApp:jsBrowserRun`
 
 ## 🚧 TODO 🚧
-- Add a difficulty selector that fits with the general look-and-feel of the app. Also, figure out how to bring the difficulty system from the classic game for Windows into a small screen environment.
-- Compose for web is still experimental. Additional migration is expected when hitting a more stable phase. 
+- Add a difficulty selector that fits with the general look-and-feel of the app. Also, figure out how to bring the difficulty system from the classic game for Windows into a small screen environment. 
 
 ## Instructions
  - The game is played on a board of 12x9 cells. 20 of these cells are hiding a mine that will explode if player uncovers them. The rest of cells are safe to uncover. Click on each cell to revel what's beneath. The goal of the game is to uncover all the cells from the board that do not contain a mine. Uncovering a mined cell will result in losing the game.
